@@ -21,11 +21,13 @@ Based on [HANCORE's Dos-Moos](https://github.com/HANCORE-linux/omarchy-dos-moos-
 
 ```bash
 omarchy theme install https://github.com/cempack/omarchy-dos-moos-theme.git
+rm -rf ~/.config/omarchy/themes/dos-moos/.git
+omarchy theme set dos-moos
 ```
 
-Or from the Omarchy menu: **Super + Alt + Space** → **Install → Style → Theme**, paste the URL, press Enter.
+Or from the Omarchy menu: **Super + Alt + Space** → **Install → Style → Theme**, paste the URL, press Enter. Then drop the leftover `.git` and re-apply, as above.
 
-That clones the theme, applies it, and names it **Dos Moos**.
+Omarchy ignores `hyprland.lua` on a cloned repo (it regenerates one from `colors.toml`). Removing `.git` makes this a user theme, so rounding and opacity load the same way stock **Solitude** does.
 
 To use it again later:
 
@@ -42,10 +44,6 @@ omarchy plymouth set by theme dos-moos
 ```
 
 That needs sudo and rebuilds the initramfs.
-
-### Rounded corners and window opacity (optional)
-
-Omarchy drops `hyprland.lua` from cloned themes. If you want 12px rounding and the tuned window opacity, append `extras/looknfeel.lua` to `~/.config/hypr/looknfeel.lua`, then `hyprctl reload`.
 
 ## Wallpaper
 
