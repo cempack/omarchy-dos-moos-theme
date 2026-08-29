@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./preview.png" alt="Dos Moos on Omarchy" width="720" />
+  <img src="./screenshot.png" alt="Dos Moos on Omarchy" width="720" />
 </p>
 
 <h1 align="center">Dos Moos</h1>
