@@ -64,8 +64,10 @@ Cycle with the usual next-background shortcut or `omarchy theme bg next`. Extra 
 | Border (ash gray) | `#A5B5AB` |
 | Cursor / yellow | `#F4E276` |
 | Red | `#F0334A` |
+| Muted (secondary text, comments) | `#72856C` |
+| Selection (completion menus) | `#35352D` |
 
-Menu selection uses sage, not yellow.
+Shell menu selection uses sage, not yellow.
 
 ## Unlock preview
 
