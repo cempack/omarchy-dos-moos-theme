@@ -1,7 +1,7 @@
-# Omarchy Quattro shell surfaces for Dos-Moos.
-# Legacy Waybar, Walker, Mako, SwayOSD, and Hyprlock files remain authoritative
-# on Omarchy 3.8.x. These tokens reproduce their supported visual roles in the
-# Quattro shell without changing the legacy files.
+# Omarchy 4 shell surfaces for Dos-Moos. This file replaces the shell.toml
+# Omarchy would generate from colors.toml, so it lists every section; keys left
+# out fall back to the shell's defaults. The Waybar, Walker, Mako, SwayOSD and
+# Hyprlock files are only read by Omarchy 3.8.x.
 
 [bar]
 background = "#131516"
@@ -140,8 +140,6 @@ selection = "#819890"
 selection-alpha = 0.45
 
 [image-picker]
-scrim = "#131516"
-scrim-alpha = 0.5
 text = "#F8EBE3"
 selected-border = "#819890"
 selected-border-alpha = 1.0

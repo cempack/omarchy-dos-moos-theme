@@ -15,7 +15,7 @@
 
 Dark forest greens, ash-gray borders, and warm linen on `#131516`. The default wallpaper is a moody hill landscape with a darkened sky so the top bar stays readable.
 
-Based on [HANCORE's Dos-Moos](https://github.com/HANCORE-linux/omarchy-dos-moos-theme), with a default hills wallpaper, a custom Plymouth unlock screen, sage menu selection, and slightly translucent windows.
+Based on [HANCORE's Dos-Moos](https://github.com/HANCORE-linux/omarchy-dos-moos-theme), with a default hills wallpaper, a custom Plymouth unlock screen, sage menu selection, and rounded windows. Window translucency follows Omarchy 4.5 (Appearance → Windows → Window Opacity).
 
 ## Install
 
@@ -27,7 +27,7 @@ omarchy theme set dos-moos
 
 Or from the Omarchy menu: **Super + Alt + Space** → **Install → Style → Theme**, paste the URL, press Enter. Then drop the leftover `.git` and re-apply, as above.
 
-Omarchy ignores `hyprland.lua` on a cloned repo (it regenerates one from `colors.toml`). Removing `.git` makes this a user theme, so rounding and opacity load the same way stock **Solitude** does.
+Omarchy ignores `hyprland.lua` on a cloned repo (it regenerates one from `colors.toml`). Removing `.git` makes this a user theme, so its rounding and borders load the same way stock **Solitude** does.
 
 To use it again later:
 

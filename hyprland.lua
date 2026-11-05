@@ -1,5 +1,9 @@
 -- Dos Moos Hyprland — same pattern as stock Solitude:
 -- rounding lives on the theme, not in ~/.config/hypr/looknfeel.lua.
+--
+-- Window opacity is left to Omarchy: since 4.5 it makes terminals and a few
+-- apps see-through at 0.985 / 0.96 and keeps everything else solid, and
+-- Appearance > Windows > Window Opacity switches them to opaque or glassy.
 
 local active_border_color = "rgb(A5B5AB)"
 local inactive_border_color = "rgb(35373A)"
@@ -21,9 +25,6 @@ hl.config({
   decoration = {
     rounding = 12,
     rounding_power = 2,
-    active_opacity = 0.985,
-    inactive_opacity = 0.96,
-    fullscreen_opacity = 1.0,
     shadow = {
       enabled = true,
       range = 15,
@@ -31,22 +32,9 @@ hl.config({
       color = "rgba(0A0B06ee)",
       color_inactive = "rgba(0A0B0688)",
     },
+    -- Off unless a Glassy toggle turns it on; those load after the theme.
     blur = {
       enabled = false,
     },
-  },
-})
-
-hl.window_rule({
-  opacity = "1.0 override 1.0 override",
-  match = {
-    class = "^(imv|mpv|vlc|org.gnome.NautilusPreviewer|org.gnome.Evince|com.gabm.satty|zoom|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta)$",
-  },
-})
-
-hl.window_rule({
-  opacity = "1.0 override 1.0 override",
-  match = {
-    class = "^(gimp|com.github.xournalpp.xournalpp|nwg-look|system-config-printer)$",
   },
 })
