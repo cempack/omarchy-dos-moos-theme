@@ -57,12 +57,13 @@ Cycle with the usual next-background shortcut or `omarchy theme bg next`. Extra 
 
 ### Intro, then animation
 
-Omarchy 4.5 plays a background intro only before a still, never before a video. Dos Moos works around that so you get both:
+Omarchy 4.5's intro player only runs before a still, never before a video, and it pauses on the last frame. Dos Moos gets around both, so you get the intro and then the animation with no pause:
 
-- Pick `1-moor-loop.mp4` once. From then on, every login plays the intro and hands over to the loop. The still is the intro's last frame and the loop's first, so the switch doesn't show.
-- How: when the session ends on the loop, `hyprland.lua` saves `0-moor.png` as the background. At the next login, Omarchy plays that still's intro, and `moor-handoff.sh` switches to the loop once the intro ends.
-- Switching to Dos Moos from another theme brings back whichever Moor background you last used, without the intro handoff.
-- Pick `0-moor.png` on purpose and it stays a still with its intro. Every other background is left alone.
+- Pick `1-moor-loop.mp4` once. From then on, every login plays the intro and carries straight on into the loop.
+- How: when the session ends on the loop, `hyprland.lua` saves the intro clip as the background. At the next login it plays as an ordinary video, and `moor-handoff.sh` switches to the loop 0.15 s before the intro ends. The intro's last frame is the loop's first, and a video-to-video switch takes under 0.1 s.
+- If the handoff ever starts late, it switches as soon as the intro starts over, and after 20 s at the latest.
+- Switching to Dos Moos from another theme brings back whichever Moor background you last used, without the intro.
+- Pick `0-moor.png` on purpose and it stays a still. Omarchy plays its intro the usual way. Every other background is left alone.
 - With background intros or animations turned off, you go straight to the loop.
 
 The loop is decoded on the GPU. To save battery, set `battery_mode = "pause"` (or `"poster"`) in `~/.config/owe/config.toml` (see `/usr/share/doc/owe/config.toml.example`), then run `owe reload-config`.

@@ -1,14 +1,21 @@
 #!/bin/sh
-# Dos Moos: hand the login intro over to the animated moor loop.
+# Dos Moos: play the Moor intro at login, then hand over to the animated loop.
 #
-# Omarchy plays a background intro only before a still, so hyprland.lua saves
-# the moor still as the background when the session ends, and starts this at
-# login. Once Omarchy's intro has played, switch to the loop. The still is the
-# intro's last frame and the loop's first, so the switch doesn't show.
+# When the session ends on the loop, hyprland.lua saves the intro clip as the
+# background, so the next session starts by playing it as an ordinary video
+# background. Switch to the loop just before the intro's last frame: a switch
+# between two videos takes under 0.1 s, and the intro ends on the loop's first
+# frame, so the motion carries straight on.
 #
-# Usage: moor-handoff.sh <loop.mp4>
+# Omarchy's own intro player isn't used. It won't play before a video
+# background, and it holds the last frame for about a second while it fades to
+# a still.
+#
+# Usage: moor-handoff.sh <intro.mp4> <loop.mp4> <switch-at-seconds>
 
-loop="$1"
+intro="$1"
+loop="$2"
+switch_at="$3"
 state="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy"
 [ -f "$loop" ] || exit 0
 
@@ -17,19 +24,24 @@ intros_off() {
     [ "$(hyprctl -j getoption animations:enabled 2>/dev/null | jq -r .bool 2>/dev/null)" = false ]
 }
 
-# Wait for the intro to start and then to finish. With intros off, or if none
-# plays within 30 seconds, go straight to the loop.
+# Position of the intro in seconds while it is the playing background.
+intro_position() {
+  owe render-status 2>/dev/null |
+    jq -r --arg name "/${intro##*/}" 'select(.kind == "video" and (.path | endswith($name))) | .time_pos' 2>/dev/null
+}
+
+# Wait for the switch point, or for the clip to wrap around to its start if
+# this started late. Give up after 20 seconds so the loop always comes.
 if ! intros_off; then
-  deadline=$(($(date +%s) + 30))
-  started=false
+  deadline=$(($(date +%s) + 20))
+  last=-1
   while [ "$(date +%s)" -lt "$deadline" ]; do
-    playing=$(owe status 2>/dev/null | jq -r '.intro' 2>/dev/null)
-    if [ "$playing" = true ]; then
-      started=true
-    elif [ "$started" = true ]; then
-      break
+    pos=$(intro_position)
+    if [ -n "$pos" ]; then
+      awk -v p="$pos" -v s="$switch_at" -v l="$last" 'BEGIN { exit !(p >= s || (l > 1 && p < l)) }' && break
+      last=$pos
     fi
-    sleep 0.2
+    sleep 0.03
   done
 fi
 
